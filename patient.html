@@ -1,0 +1,412 @@
+
+
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+
+<head>
+    <!-- Google Tag Manager -->
+<script type="ef711bae82692fa94d4872d8-text/javascript">(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+            new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-THDV9C4');</script>
+<!-- End Google Tag Manager -->
+  
+
+    <meta charset="utf-8">
+    
+
+    <!-- BASIC INFO -->
+
+
+    <meta name="author" content="">  
+    <link rel="icon" href="/images/heart.png?v=2">
+    <!-- GOOGLE FONTS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+    <!-- LIBRARIES CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/animate.min.css">
+
+    <!-- SPECIFIC CSS -->
+    <link rel="stylesheet" href="/css/style.css?v=20201029v1.123">
+    <link rel="stylesheet" href="/dp/css/bootstrap-datepicker3.standalone.css" />
+    <!-- COLORS -->
+    <link id="color-css" rel="stylesheet" href="/css/colors/blue.css">
+    <script src="/js/jquery-1.11.2.min.js" type="ef711bae82692fa94d4872d8-text/javascript"></script>
+    <script src="/js/script.js?v=1.1234567" type="ef711bae82692fa94d4872d8-text/javascript"></script>
+    <script type="ef711bae82692fa94d4872d8-text/javascript">
+        window.onload = function () { if (localStorage.getItem("__apiUrl") == null || localStorage.getItem("__apiUrl") == undefined) localStorage.setItem("__apiUrl", 'https://api.dhoondh.com/'); }
+    </script>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="plasma therapy, find donors, covid positive, covid negative, coronavirus therapy, plasma, delhi, mumbai, chandigarh, donors, register patient, register donor, help society, do good, blessings" />
+    <meta name="description" content="This site connects current COVID patients with recovered COVID patients who wish to donate plasma" />
+    <meta property="og:url" content="https://dhoondh.com/" />
+    <meta property="og:type" content="Website" />
+    <meta property="og:site_name" content="dhoondh.com" />
+    <meta property="og:title" content="Find and donate Plasma to fight Covid" />
+    <meta property="og:description" content="This site connects current COVID patients with recovered COVID patients who wish to donate plasma" />
+    <meta property="og:image" content="https://dhoondh.com/images/heart.png" />
+    <meta property="og:image:url" content="https://dhoondh.com/images/heart.png" />
+    <meta property="og:updated_time" content="2020-06-12" />
+    <meta name="twitter:title" content="Find and donate Plasma to fight Covid" />
+    <meta name="twitter:description" content="This site connects current COVID patients with recovered COVID patients who wish to donate plasma" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:url" content="https://dhoondh.com/" />
+    <meta name="twitter:image" content="https://dhoondh.com/images/heart.png" />
+
+    
+    <title>Jeevan - Find and donate Plasma to fight Covid</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGfl5kx_-wX_htGXI12hV0wLREOGMuY9U&libraries=places&callback=initMap" async defer type="ef711bae82692fa94d4872d8-text/javascript"></script>
+    <script type="ef711bae82692fa94d4872d8-text/javascript">
+        function initMap() {
+            var optionsCity = {
+                componentRestrictions: { country: "in" }
+            };
+
+            //var input = document.getElementById('q6_ans');
+            //new google.maps.places.Autocomplete(input, optionsCity);
+            var input2 = document.getElementById('q7_ans');
+            new google.maps.places.Autocomplete(input2, optionsCity);
+        }
+    </script>
+    <script type="ef711bae82692fa94d4872d8-text/javascript">
+        var _quoteid;
+        $(document).ready(function () {
+            $(".disabled").find('input').prop("disabled", true);
+            _quoteid = getParameterByName('qoute');
+            if (_quoteid == '' || _quoteid == undefined || _quoteid == null)
+                window.location = '/start-patient';
+            else {
+                //we may begin
+                $.ajax({
+                    type: 'GET',
+                    url: localStorage.getItem("__apiUrl") + 'Response/Check?quote=' + _quoteid,
+                    dataType: 'json',
+                    success: function (d) {
+                        //we are good to be here
+                        console.log(d);
+                    }, error: function (errormessage) {
+                        window.location = 'error';
+                    }
+                });
+            }
+        });
+
+        function GoToNextQuestion(el, qno) {
+            //if this is a text type question, we need to validate that there is info in there
+            var currentQno = (qno - 1);
+            var valid = false;
+            var question = $("#q" + currentQno).find('h2').html();
+            var ans = '';
+            if ($("#q" + currentQno + "_ans").length) {
+                //we have a text box
+                //does it have a value?
+                var ans = $("#q" + currentQno + "_ans").val();
+                if (currentQno != 3 && ans != '')
+                    valid = true;
+                else if (currentQno == 3) {
+                    if ($(el).attr('id') == 'btn_no_email' || (ans != '' && validateEmail(ans)))
+                        valid = true;
+                    if (ans == '')
+                        ans = $(el).val();
+                }
+            }
+            else {
+                ans = $(el).val();
+                valid = true;
+            }
+
+            if (valid) {
+                var pr = { qno: currentQno, q: question, ans: ans, quote: _quoteid };
+
+                $.ajax({
+                    type: "POST",
+                    data: {
+                        pr
+                    },
+                    url: localStorage.getItem("__apiUrl") + "Response/Add",
+
+                    success: function (d) {
+                        $(el).parent().find('input').removeClass("btn-selected");
+                        $(el).addClass('btn-selected');
+
+                        var ctr = qno;
+                        while (ctr <= 13) {
+                            $("#q" + ctr).find('input').prop("disabled", true);
+                            $("#q" + ctr).addClass('disabled');
+                            ctr++;
+                        }
+                        $("#q" + qno).find('input').prop("disabled", false);
+                        $("#q" + qno).removeClass('disabled');
+                        if (qno < 13) {
+                            $([document.documentElement, document.body]).animate({
+                                scrollTop: $("#q" + qno).offset().top - 100
+                            }, 1000);
+
+                        }
+                        else {
+                            window.location = 'thankyou?ty=p&q=' + _quoteid;
+                        }
+                    }, error: function (errormessage) {
+                        console.debug(errormessage);
+                    }
+                });
+
+
+            }
+        }
+    </script>
+
+</head>
+
+<body class="enable-animations ">
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-THDV9C4"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    <div id="document" class="document">
+        <header id="header" class="header-section section section-dark navbar navbar-default navbar-fixed-top floating">
+            <div class="container-fluid">
+
+                <div class="navbar-header navbar-left">
+
+
+                    <!-- HEADER LOGO -->
+                    <a class="navbar-logo navbar-brand" href="/home">
+                        <img src="/images/heart.png" alt="Jeevan">
+                    </a>
+                    <span class="small pull-right hidden-sm hidden-md hidden-lg" style="padding-right: 10%; padding-top: 10%;"></span>
+                </div>
+
+
+
+            </div>
+
+        </header>
+
+        <section id="hero" class="section">
+            
+    <div class="container">
+        <div class="question row" id="q1">
+            <div class="col-md-5 col-md-offset-3">
+
+                <div>
+                    <h4 style="padding-bottom: 0px; margin-bottom: 0px;"><b>Patient Registration</b></h4>
+                    <span class="small">We are doing our level best to find matching donors in your city. This form will only take you a minute to complete.<br />
+                        Well take it from there and will alert you when we find a suitable match. Please remember time is of the essence for you so please diligently continue your search through all other options.</span>
+                    <br />
+                    <b style="color: red">Please do not fill out this form with multiple contact details for the same patient.</b>
+                    <h2 class="form-question">What is the patient's name?</h2>
+                    <p>
+                        <input id="q1_ans" type="text" name="contact-subject" class="form-control">
+                    </p>
+                    <p>
+
+                        <input type="button" class="pull-right btn-default btn-lg" value="START" onclick="if (!window.__cfRLUnblockHandlers) return false; GoToNextQuestion(this, 2);" data-cf-modified-ef711bae82692fa94d4872d8-="" />
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="question row disabled" id="q2">
+            <div class="col-md-5 col-md-offset-3">
+
+                <div>
+
+                    <h2 class="form-question">What is your mobile number?</h2>
+                    <p>
+                        <input id="q2_ans" type="number" name="contact-subject" class="form-control">
+                    </p>
+                    <p>
+                        <input type="button" class="pull-right btn-default btn-lg" value="NEXT" onclick="if (!window.__cfRLUnblockHandlers) return false; GoToNextQuestion(this, 3);" data-cf-modified-ef711bae82692fa94d4872d8-="" />
+                    </p>
+                </div>
+
+            </div>
+        </div>
+        <div class="question row disabled" id="q3">
+            <div class="col-md-5 col-md-offset-3">
+
+                <div>
+
+                    <h2 class="form-question">What is your email address?</h2>
+                    <p>
+                        <input id="q3_ans" type="text" name="contact-subject" class="form-control">
+                    </p>
+                    <div>
+                        <input id="btn_email" type="button" class="pull-right btn-default btn-lg" value="NEXT" onclick="if (!window.__cfRLUnblockHandlers) return false; GoToNextQuestion(this, 4);" data-cf-modified-ef711bae82692fa94d4872d8-="" />
+                        <input id="btn_no_email" type="button" class="btn-default btn-lg" value="Dont Have One" onclick="if (!window.__cfRLUnblockHandlers) return false; GoToNextQuestion(this, 4);" data-cf-modified-ef711bae82692fa94d4872d8-="" />&nbsp;
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="question row disabled" id="q4">
+            <div class="col-md-5 col-md-offset-3">
+
+                <div>
+
+                    <h2 class="form-question">How old is the patient?</h2>
+                    <p>
+                        <input id="q4_ans" type="number" name="contact-subject" class="form-control">
+                    </p>
+                    <p>
+                        <input type="button" class="pull-right btn-default btn-lg" value="NEXT" onclick="if (!window.__cfRLUnblockHandlers) return false; GoToNextQuestion(this, 5);" data-cf-modified-ef711bae82692fa94d4872d8-="" />
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="question row disabled" id="q5">
+            <div class="col-md-5 col-md-offset-3">
+
+                <div>
+
+                    <h2 class="form-question">What is the patient's gender? </h2>
+                    <div>
+                        <input type="button" class="btn-default btn-lg" value="Male" onclick="if (!window.__cfRLUnblockHandlers) return false; GoToNextQuestion(this, 6);" data-cf-modified-ef711bae82692fa94d4872d8-="" />
+                        <input type="button" class="btn-default btn-lg" value="Female" onclick="if (!window.__cfRLUnblockHandlers) return false; GoToNextQuestion(this, 6);" data-cf-modified-ef711bae82692fa94d4872d8-="" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="question row disabled" id="q6">
+            <div class="col-md-5 col-md-offset-3">
+
+                <div>
+
+                    <h2 class="form-question">City you are currently in</h2>
+                    <p>
+                        <input id="q6_ans" type="text" name="contact-subject" class="form-control">
+                    </p>
+                    <p>
+                        <input type="button" class="pull-right btn-default btn-lg" value="NEXT" onclick="if (!window.__cfRLUnblockHandlers) return false; GoToNextQuestion(this, 7);" data-cf-modified-ef711bae82692fa94d4872d8-="" />
+                    </p>
+                </div>
+
+            </div>
+        </div>
+        <div class="question row disabled" id="q7">
+            <div class="col-md-5 col-md-offset-3">
+
+                <div>
+
+                    <h2 class="form-question">Which hospital is the patient in</h2>
+                    <p>
+                        <input id="q7_ans" type="text" name="contact-subject" class="form-control">
+                    </p>
+                    <p>
+                        <input type="button" class="pull-right btn-default btn-lg" value="NEXT" onclick="if (!window.__cfRLUnblockHandlers) return false; GoToNextQuestion(this, 8);" data-cf-modified-ef711bae82692fa94d4872d8-="" />
+                    </p>
+                </div>
+
+            </div>
+        </div>
+        <div class="question row disabled" id="q8">
+            <div class="col-md-5 col-md-offset-3">
+                <div>
+                    <h2 class="form-question">Select patient blood group</h2>
+                    <div>
+                        <input type="button" class="btn-default btn-lg" value="A+" onclick="if (!window.__cfRLUnblockHandlers) return false; GoToNextQuestion(this, 9);" data-cf-modified-ef711bae82692fa94d4872d8-="" />
+                        <input type="button" class="btn-default btn-lg" value="A-" onclick="if (!window.__cfRLUnblockHandlers) return false; GoToNextQuestion(this, 9);" data-cf-modified-ef711bae82692fa94d4872d8-="" />
+                        <input type="button" class="btn-default btn-lg" value="B+" onclick="if (!window.__cfRLUnblockHandlers) return false; GoToNextQuestion(this, 9);" data-cf-modified-ef711bae82692fa94d4872d8-="" />
+                        <input type="button" class="btn-default btn-lg" value="B-" onclick="if (!window.__cfRLUnblockHandlers) return false; GoToNextQuestion(this, 9);" data-cf-modified-ef711bae82692fa94d4872d8-="" />
+                        <input type="button" class="btn-default btn-lg" value="O+" onclick="if (!window.__cfRLUnblockHandlers) return false; GoToNextQuestion(this, 9);" data-cf-modified-ef711bae82692fa94d4872d8-="" />
+                        <input type="button" class="btn-default btn-lg" value="O-" onclick="if (!window.__cfRLUnblockHandlers) return false; GoToNextQuestion(this, 9);" data-cf-modified-ef711bae82692fa94d4872d8-="" />
+                        <input type="button" class="btn-default btn-lg" value="AB+" onclick="if (!window.__cfRLUnblockHandlers) return false; GoToNextQuestion(this, 9);" data-cf-modified-ef711bae82692fa94d4872d8-="" />
+                        <input type="button" class="btn-default btn-lg" value="AB-" onclick="if (!window.__cfRLUnblockHandlers) return false; GoToNextQuestion(this, 9);" data-cf-modified-ef711bae82692fa94d4872d8-="" />
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="question row disabled" id="q9">
+            <div class="col-md-5 col-md-offset-3">
+
+                <div>
+
+                    <h2 class="form-question">Do you have case sheet from doctor?</h2>
+                    <div>
+                        <input type="button" class="btn-default btn-lg" value="Yes" onclick="if (!window.__cfRLUnblockHandlers) return false; GoToNextQuestion(this, 12);" data-cf-modified-ef711bae82692fa94d4872d8-="" />
+                        <input type="button" class="btn-default btn-lg" value="Not Yet" onclick="if (!window.__cfRLUnblockHandlers) return false; GoToNextQuestion(this, 12);" data-cf-modified-ef711bae82692fa94d4872d8-="" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="question row disabled" id="q12">
+            <div class="col-md-5 col-md-offset-3">
+
+                <div>
+
+                    <h2 class="form-question">By submitting this form, </h2>
+                    <ol>
+                        <li>I confirm that the information I have provided here is complete and accurate to the best of my knowledge.</li>
+                        <li>I confirm that I fulfil the eligibility criteria for patients set out at <a target="_blank" href=""></a>.</li>
+                        <li>I confirm that I wish to share the information provided here with Jeevan for the exclusive purpose(s) of matching with donors from the database of donors registered with Dhoondh and sharing this information directly and solely with the matched donors.</li>
+                        <li>I agree to hold harmless Jeevan for its use of the information for the exclusive purpose(s) set out above.</li>
+
+                    </ol>
+                    <div>
+                        <input type="button" class="btn-default btn-lg" value="Confirm" onclick="if (!window.__cfRLUnblockHandlers) return false; GoToNextQuestion(this, 13);" data-cf-modified-ef711bae82692fa94d4872d8-="" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+        </section>
+        <section id="footer" class="footer-section section">
+            <div class="container">
+                <h3 class="footer-logo">
+                    <img src="/images/heart.png" width="60">
+                </h3>
+
+                <div class="footer-copyright">
+                    &copy; 2021 Good People Company
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <script src="/js/bootstrap.min.js" type="ef711bae82692fa94d4872d8-text/javascript"></script>
+    <script src="/js/respimage.min.js" type="ef711bae82692fa94d4872d8-text/javascript"></script>
+    
+    <script src="/js/smoothscroll.min.js" type="ef711bae82692fa94d4872d8-text/javascript"></script>
+    <script src="/js/jquery.nav.min.js" type="ef711bae82692fa94d4872d8-text/javascript"></script>
+    <script src="/js/jquery.inview.min.js" type="ef711bae82692fa94d4872d8-text/javascript"></script>
+    <script src="/js/jquery.counterup.min.js" type="ef711bae82692fa94d4872d8-text/javascript"></script>
+    <script src="/js/jquery.stellar.min.js" type="ef711bae82692fa94d4872d8-text/javascript"></script>
+    <script src="/js/responsiveslides.min.js" type="ef711bae82692fa94d4872d8-text/javascript"></script>
+    <script type="ef711bae82692fa94d4872d8-text/javascript" src="/dp/js/bootstrap-datepicker.js"></script>
+    <script type="ef711bae82692fa94d4872d8-text/javascript">
+        CheckVisitor();
+    </script>
+
+
+<script src="https://ajax.cloudflare.com/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="ef711bae82692fa94d4872d8-|49" defer=""></script></body>
+
+</html>
